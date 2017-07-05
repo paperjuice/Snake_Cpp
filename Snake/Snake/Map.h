@@ -3,18 +3,20 @@
 #include <windows.h>
 
 
-#define cout std::cout
-#define endl std::endl
+
 
 class Map {
 public:
 	Map();
 	void GenerateMap();
 
+protected:
+	int GetMapWidth() { return mapWidth; }
+	int GetMapHeight() { return mapHeight; }
+	
+
 private:
 	int mapWidth = 20;
-	int mapHeight = 10;
-
-
+	int mapHeight = 20;
 
 };

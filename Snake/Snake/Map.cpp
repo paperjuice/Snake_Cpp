@@ -1,5 +1,6 @@
 #include "Map.h"
-
+#define cout std::cout
+#define endl std::endl
 
 Map::Map()
 {
