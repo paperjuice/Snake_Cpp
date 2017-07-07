@@ -10,13 +10,17 @@ int main()
 	MainCharacter mc;
 
 
-	mc.SpawnInScene();
-/*
+	
+
 	while (isRunning)
 	{
+		map.Bounderies();
+		map.Control();
 		map.GenerateMap();
+		Sleep(50);
+		system("cls");
 	}
-*/
+
 	std::cin.ignore();
 	return 0;
 }

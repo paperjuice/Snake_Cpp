@@ -1,8 +1,4 @@
-﻿  MainCharacter.cpp
-d:\_work\c++\snake\snake\snake\maincharacter.cpp(9): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
-  Compiling...
-  main.cpp
-  Generating Code...
+﻿  Map.cpp
+d:\_work\c++\snake\snake\snake\map.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Snake.vcxproj -> D:\_Work\C++\Snake\Snake\Debug\Snake.exe
   Snake.vcxproj -> D:\_Work\C++\Snake\Snake\Debug\Snake.pdb (Partial PDB)
