@@ -1,23 +1,20 @@
 #include "Map.h"
-#include "MainCharacter.h"
-
 
 
 int main()
 {
 	bool isRunning = true;
 	Map map;
-	MainCharacter mc;
-
-
-	
+	int difficulty = 80;
 
 	while (isRunning)
 	{
+		map.AutomaticMovement();
+		map.CollectConsumables();
 		map.Bounderies();
 		map.Control();
 		map.GenerateMap();
-		Sleep(50);
+		Sleep(difficulty);
 		system("cls");
 	}
 

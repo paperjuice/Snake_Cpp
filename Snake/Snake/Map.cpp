@@ -1,21 +1,35 @@
-#include "Map.h"
+﻿#include "Map.h"
 #include <time.h>
 #include <conio.h>
+#include <chrono>
 
 #define cout std::cout
 #define endl std::endl
 
-Map::Map()
+Map::Map(): autoMovementDirectionVar(AutoMovementDirection::IDLE)
 {
+	srand(static_cast<unsigned int>(time(nullptr)));
 
+	Coordinates mcRandCoord = Map::RandomXandY(GetMapHeight(), GetMapWidth());
+	Coordinates consRandCoord = Map::RandomXandY(GetMapHeight(), GetMapWidth());
 
-	srand(time(NULL));
-	mcInitalPosY = rand() % GetMapHeight() - 1 + 1;
-	mcInitalPosX = rand() % GetMapWidth() - 1 + 1;
+	mcInitalPosX = mcRandCoord.x;
+	mcInitalPosY = mcRandCoord.y;
+
+	consumablePosX = consRandCoord.x;
+	consumablePosY = consRandCoord.y;
 }
 
 
-void Map::GenerateMap()
+Coordinates Map::RandomXandY(int maxHeight, int maxWidth)
+{
+	int randomX = rand() % (maxHeight - 2) + 1;
+	int randomY = rand() % (maxWidth - 2) + 1;
+
+	return { randomX, randomY };
+}
+
+void Map::GenerateMap() const
 {
 	for (int i = 0; i != mapWidth; i++)
 	{
@@ -24,6 +38,10 @@ void Map::GenerateMap()
 			if (i == mcInitalPosY && j == mcInitalPosX)
 			{
 				cout << "@";
+			}
+			else if (i == consumablePosY && j == consumablePosX)
+			{
+				cout << "C";
 			}
 			else if (i == 0 )
 			{
@@ -46,26 +64,28 @@ void Map::GenerateMap()
 			}
 		}
 	}
+	cout << endl;
+	cout << "Score :"<<score << endl;
 }
 
 
-void Map::Control()
+void Map::Control() 
 {
 	if (_kbhit())
 	{
 		switch (_getch())
 		{
 		case 'a':
-			mcInitalPosX--;
+			autoMovementDirectionVar = AutoMovementDirection::LEFT;
 			break;
 		case 'd':
-			mcInitalPosX++;
+			autoMovementDirectionVar = AutoMovementDirection::RIGHT;
 			break;
 		case 'w':
-			mcInitalPosY--;
+			autoMovementDirectionVar = AutoMovementDirection::DOWN;
 			break;
 		case 's':
-			mcInitalPosY++;
+			autoMovementDirectionVar = AutoMovementDirection::UP;
 			break;
 		}
 	}
@@ -89,6 +109,48 @@ void Map::Bounderies()
 	if (mcInitalPosX > GetMapWidth()-2)
 	{
 		mcInitalPosX = 1;
+	}
+}
+
+void Map::AutomaticMovement()
+{
+	switch (autoMovementDirectionVar)
+	{
+	case AutoMovementDirection::UP:
+		mcInitalPosY++;
+		break;
+	case AutoMovementDirection::DOWN:
+		mcInitalPosY--;
+		break;
+	case AutoMovementDirection::LEFT:
+		mcInitalPosX--;
+		break;
+	case AutoMovementDirection::RIGHT:
+		mcInitalPosX++;
+		break;
+	default:
+		break;
+	}
+}
+
+void Map::CollectConsumables()
+{
+	if (mcInitalPosX == consumablePosX && mcInitalPosY == consumablePosY)
+	{
+		Coordinates consRandCoord = Map::RandomXandY(GetMapHeight(), GetMapWidth());
+		consumablePosX = consRandCoord.x;
+		consumablePosY = consRandCoord.y;
+
+
+		//daca mc == cons
+		  //isConsumed = true
+		    // daca mc != consPos si is
+
+
+
+
+
+		score += 10;
 	}
 }
 
