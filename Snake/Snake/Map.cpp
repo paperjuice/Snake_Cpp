@@ -8,6 +8,15 @@
 
 Map::Map(): autoMovementDirectionVar(AutoMovementDirection::IDLE)
 {
+	
+}
+
+void Map::CleanStart()
+{
+	autoMovementDirectionVar = AutoMovementDirection::IDLE;
+	tPosX.clear();
+	tPosY.clear();
+
 	srand(static_cast<unsigned int>(time(nullptr)));
 
 	Coordinates mcRandCoord = Map::RandomXandY(GetMapHeight(), GetMapWidth());
@@ -16,7 +25,6 @@ Map::Map(): autoMovementDirectionVar(AutoMovementDirection::IDLE)
 	mcInitalPosX = mcRandCoord.x;
 	mcInitalPosY = mcRandCoord.y;
 
-
 	consumablePosX = consRandCoord.x;
 	consumablePosY = consRandCoord.y;
 
@@ -24,6 +32,7 @@ Map::Map(): autoMovementDirectionVar(AutoMovementDirection::IDLE)
 	//tail
 	tPosX.push_back(mcInitalPosX);
 	tPosY.push_back(mcInitalPosY);
+
 }
 
 
@@ -97,16 +106,20 @@ void Map::Control()
 		switch (_getch())
 		{
 		case 'a':
-			autoMovementDirectionVar = AutoMovementDirection::LEFT;
+			if(autoMovementDirectionVar != AutoMovementDirection::RIGHT)
+				autoMovementDirectionVar = AutoMovementDirection::LEFT;
 			break;
 		case 'd':
+			if (autoMovementDirectionVar != AutoMovementDirection::LEFT)
 			autoMovementDirectionVar = AutoMovementDirection::RIGHT;
 			break;
 		case 'w':
-			autoMovementDirectionVar = AutoMovementDirection::DOWN;
+			if (autoMovementDirectionVar != AutoMovementDirection::UP)
+				autoMovementDirectionVar = AutoMovementDirection::DOWN;
 			break;
 		case 's':
-			autoMovementDirectionVar = AutoMovementDirection::UP;
+			if (autoMovementDirectionVar != AutoMovementDirection::DOWN)
+				autoMovementDirectionVar = AutoMovementDirection::UP;
 			break;
 		}
 	}
@@ -167,7 +180,7 @@ void Map::CollectConsumables()
 		consumablePosX = consRandCoord.x;
 		consumablePosY = consRandCoord.y;
 
-		score += 10;
+		*score += 10;
 
 
 		tPosX.push_back(0);

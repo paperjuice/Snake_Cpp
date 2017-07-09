@@ -23,6 +23,7 @@ struct Coordinates
 class Map {
 public:
 	Map();
+	~Map() { delete score; }
 	void GenerateMap() ;
 	void Control();
 	void Bounderies();
@@ -33,7 +34,12 @@ public:
 
 	void LoseCondition();
 
+	int GetScore() const { return *score; }
+
+	void CleanStart();
+
 	bool GetGameStatus() const { return isGameRunning; }
+	void SetGameStatus(bool gameStatus) { isGameRunning = gameStatus; }
 
 protected:
 	int GetMapWidth() { return mapWidth; }
@@ -42,7 +48,7 @@ protected:
 
 private:
 	//score
-	int score = 0;
+	int* score = new int;
 
 	//map dimensions
 	int mapWidth = 20;

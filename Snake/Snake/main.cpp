@@ -1,23 +1,42 @@
 #include "Map.h"
+#include "Menu.h"
 
 
 int main()
 {
+	Menu menu;
 	Map map;
 	int difficulty = 80;
 
-	while (map.GetGameStatus())
+	while (menu.GetIsGameRunning())
 	{
-		map.LoseCondition();
-		map.AutomaticMovement();
-		map.CollectConsumables();
-		map.Control();
-		map.GenerateMap();
-		Sleep(difficulty);
-		system("cls");
+		map.CleanStart();
+
+		while (!menu.GetStartGame() )
+		{
+			menu.StartGame();
+			menu.MainMenuGraphics();
+			menu.MainMenuBehaviour();
+			Sleep(10);
+			system("cls");
+		}
+
+		map.SetGameStatus(true);
+
+		while (map.GetGameStatus())
+		{
+			map.LoseCondition();
+			map.AutomaticMovement();
+			map.CollectConsumables();
+			map.Control();
+			map.GenerateMap();
+			Sleep(difficulty);
+			system("cls");
+		}
+
+		menu.ShowScore();
 	}
 
-	std::cin.ignore();
 	return 0;
 }
 
