@@ -16,8 +16,14 @@ Map::Map(): autoMovementDirectionVar(AutoMovementDirection::IDLE)
 	mcInitalPosX = mcRandCoord.x;
 	mcInitalPosY = mcRandCoord.y;
 
+
 	consumablePosX = consRandCoord.x;
 	consumablePosY = consRandCoord.y;
+
+
+	//tail
+	tPosX.push_back(mcInitalPosX);
+	tPosY.push_back(mcInitalPosY);
 }
 
 
@@ -29,7 +35,9 @@ Coordinates Map::RandomXandY(int maxHeight, int maxWidth)
 	return { randomX, randomY };
 }
 
-void Map::GenerateMap() const
+
+
+void Map::GenerateMap() 
 {
 	for (int i = 0; i != mapWidth; i++)
 	{
@@ -60,12 +68,25 @@ void Map::GenerateMap() const
 			}
 			else
 			{
-				cout << ".";
+				bool trigger = false;
+				for (int a = 1; a != tPosX.size(); a++)
+				{
+					if (tPosY[a] == i && tPosX[a] == j && tPosX.size()>1)
+					{
+						cout << "x";
+						trigger = true;
+					}
+				}
+				if (!trigger)
+				{
+					cout << ".";
+				}
 			}
 		}
 	}
 	cout << endl;
-	cout << "Score :"<<score << endl;
+	cout << "Score: "<< tPosX.size()-1 << endl;
+	
 }
 
 
@@ -114,6 +135,9 @@ void Map::Bounderies()
 
 void Map::AutomaticMovement()
 {
+	tPosX[0] = mcInitalPosX;
+	tPosY[0] = mcInitalPosY;
+
 	switch (autoMovementDirectionVar)
 	{
 	case AutoMovementDirection::UP:
@@ -131,6 +155,8 @@ void Map::AutomaticMovement()
 	default:
 		break;
 	}
+
+	TailBehaviour();
 }
 
 void Map::CollectConsumables()
@@ -141,16 +167,50 @@ void Map::CollectConsumables()
 		consumablePosX = consRandCoord.x;
 		consumablePosY = consRandCoord.y;
 
-
-		//daca mc == cons
-		  //isConsumed = true
-		    // daca mc != consPos si is
-
-
-
-
-
 		score += 10;
+
+
+		tPosX.push_back(0);
+		tPosY.push_back(0);
+	}
+}
+
+
+
+void Map::TailBehaviour()
+{
+	int tempX;
+	int tempY;
+
+	if (tPosX.size() > 1)
+	{
+		for (int a = 1; a != tPosX.size(); a++)
+		{
+			tempX = tPosX[a];
+			tempY = tPosY[a];
+
+			tPosX[a] = tPosX[a-1];
+			tPosY[a] = tPosY[a - 1];
+
+			tPosX[a - 1] = tempX;
+			tPosY[a - 1] = tempY;
+		}
+	}
+}
+
+void Map::LoseCondition()
+{
+	for (int a = 1; a != tPosX.size(); a++)
+	{
+		if (mcInitalPosX == tPosX[a] && mcInitalPosY == tPosY[a])
+		{
+			isGameRunning = false;
+		}
+	}
+
+	if (mcInitalPosY > GetMapHeight() - 2 || mcInitalPosY < 1 || mcInitalPosX < 1|| mcInitalPosX > GetMapWidth() - 2)
+	{
+		isGameRunning = false;
 	}
 }
 

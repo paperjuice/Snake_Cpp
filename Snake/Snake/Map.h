@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <windows.h>
+#include <vector>
 
 
 enum class AutoMovementDirection
@@ -22,15 +23,17 @@ struct Coordinates
 class Map {
 public:
 	Map();
-	void GenerateMap() const;
+	void GenerateMap() ;
 	void Control();
 	void Bounderies();
 	void AutomaticMovement();
-
 	Coordinates RandomXandY(int maxHeight, int maxWidth);
-
 	void CollectConsumables();
+	void TailBehaviour();
 
+	void LoseCondition();
+
+	bool GetGameStatus() const { return isGameRunning; }
 
 protected:
 	int GetMapWidth() { return mapWidth; }
@@ -56,5 +59,10 @@ private:
 	int consumablePosX;
 	int consumablePosY;
 
+	// tail
+	std::vector<int> tPosX;
+	std::vector<int> tPosY;
 
+
+	bool isGameRunning = true;
 };

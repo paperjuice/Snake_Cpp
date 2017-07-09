@@ -3,15 +3,14 @@
 
 int main()
 {
-	bool isRunning = true;
 	Map map;
 	int difficulty = 80;
 
-	while (isRunning)
+	while (map.GetGameStatus())
 	{
+		map.LoseCondition();
 		map.AutomaticMovement();
 		map.CollectConsumables();
-		map.Bounderies();
 		map.Control();
 		map.GenerateMap();
 		Sleep(difficulty);
