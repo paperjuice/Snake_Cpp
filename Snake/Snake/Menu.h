@@ -15,7 +15,7 @@ enum class MenuOptions
 	Exit
 };
 
-class Menu {
+class Menu:public Map {
 
 public:
 	Menu();
@@ -23,7 +23,7 @@ public:
 	void MainMenuBehaviour();
 	void StartGame();
 
-	void ShowScore();
+	void ShowScore(int score)const;
 
 	bool GetStartGame() const { return isGameStarting; }
 	bool GetIsGameRunning() const { return isGameRunning; }
@@ -31,8 +31,6 @@ public:
 private:
 	MenuOptions menuOptions = MenuOptions::StartGame;
 	bool isGameStarting = false;
-
-	Map map;
 
 	int keyPressed;
 	bool isGameRunning = true;

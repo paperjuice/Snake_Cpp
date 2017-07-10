@@ -6,13 +6,11 @@
 #define cout std::cout
 #define endl std::endl
 
-Map::Map(): autoMovementDirectionVar(AutoMovementDirection::IDLE)
-{
-	
-}
+Map::Map(){}
 
 void Map::CleanStart()
 {
+	score = 0;
 	autoMovementDirectionVar = AutoMovementDirection::IDLE;
 	tPosX.clear();
 	tPosY.clear();
@@ -36,7 +34,7 @@ void Map::CleanStart()
 }
 
 
-Coordinates Map::RandomXandY(int maxHeight, int maxWidth)
+Coordinates Map::RandomXandY(int maxHeight, int maxWidth) const
 {
 	int randomX = rand() % (maxHeight - 2) + 1;
 	int randomY = rand() % (maxWidth - 2) + 1;
@@ -46,7 +44,7 @@ Coordinates Map::RandomXandY(int maxHeight, int maxWidth)
 
 
 
-void Map::GenerateMap() 
+void Map::GenerateMap() const
 {
 	for (int i = 0; i != mapWidth; i++)
 	{
@@ -94,8 +92,7 @@ void Map::GenerateMap()
 		}
 	}
 	cout << endl;
-	cout << "Score: "<< tPosX.size()-1 << endl;
-	
+	cout << "Score: "<< score << endl;
 }
 
 
@@ -180,7 +177,7 @@ void Map::CollectConsumables()
 		consumablePosX = consRandCoord.x;
 		consumablePosY = consRandCoord.y;
 
-		*score += 10;
+		score += 1;
 
 
 		tPosX.push_back(0);

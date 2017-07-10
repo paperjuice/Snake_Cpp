@@ -21,6 +21,7 @@ int main()
 			system("cls");
 		}
 
+		
 		map.SetGameStatus(true);
 
 		while (map.GetGameStatus())
@@ -34,7 +35,7 @@ int main()
 			system("cls");
 		}
 
-		menu.ShowScore();
+		menu.ShowScore(map.GetScore());
 	}
 
 	return 0;

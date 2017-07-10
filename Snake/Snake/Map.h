@@ -23,18 +23,17 @@ struct Coordinates
 class Map {
 public:
 	Map();
-	~Map() { delete score; }
-	void GenerateMap() ;
+	void GenerateMap() const;
 	void Control();
 	void Bounderies();
 	void AutomaticMovement();
-	Coordinates RandomXandY(int maxHeight, int maxWidth);
+	Coordinates RandomXandY(int maxHeight, int maxWidth) const;
 	void CollectConsumables();
 	void TailBehaviour();
 
 	void LoseCondition();
 
-	int GetScore() const { return *score; }
+	int GetScore() const { return score; }
 
 	void CleanStart();
 
@@ -48,7 +47,7 @@ protected:
 
 private:
 	//score
-	int* score = new int;
+	int score = 0;
 
 	//map dimensions
 	int mapWidth = 20;
@@ -68,7 +67,6 @@ private:
 	// tail
 	std::vector<int> tPosX;
 	std::vector<int> tPosY;
-
 
 	bool isGameRunning = true;
 };

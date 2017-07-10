@@ -1,10 +1,7 @@
 #include "Menu.h"
 
 
-Menu::Menu()
-{
-
-}
+Menu::Menu(){}
 
 void Menu::MainMenuGraphics() const
 {
@@ -78,13 +75,12 @@ void Menu::StartGame()
 	{
 		if (menuOptions == MenuOptions::Exit && _getch() == '\r')
 		{
-			//isGameRunning = false;
 			exit(0);
 		}
 	}
 }
 
-void Menu::ShowScore()
+void Menu::ShowScore(int score) const
 {
 	
 	cout << "####################" << endl;
@@ -92,7 +88,7 @@ void Menu::ShowScore()
 	cout << "#      SCORE       #" << endl;
 	cout << "#                  #" << endl;
 	cout << "#                  #" << endl;
-	cout << "#        " << map.GetScore() << "       #" << endl;
+	cout << "#        " << score << "       #" << endl;
 	cout << "#                  #" << endl;
 	cout << "#                  #" << endl;
 	cout << "#                  #" << endl;
@@ -103,6 +99,4 @@ void Menu::ShowScore()
 
 	std::cin.ignore();
 	system("cls");
-	isGameStarting = false;
-	map.SetGameStatus(true);
 }
