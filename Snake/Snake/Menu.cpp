@@ -19,7 +19,7 @@ void Menu::MainMenuGraphics() const
 		cout << "#                  #" << endl;
 		cout << "#    EXIT          #" << endl;
 		cout << "#                  #" << endl;
-		cout << "#                  #" << endl;
+		cout << "#  wasd  -  enter  #" << endl;
 		cout << "####################" << endl;
 		break;
 	case MenuOptions::Exit:
@@ -34,7 +34,7 @@ void Menu::MainMenuGraphics() const
 		cout << "#                  #" << endl;
 		cout << "#  >   EXIT        #" << endl;
 		cout << "#                  #" << endl;
-		cout << "#                  #" << endl;
+		cout << "#  wasd  -  enter  #" << endl;
 		cout << "####################" << endl;
 		break;
 
@@ -88,7 +88,7 @@ void Menu::ShowScore(int score) const
 	cout << "#      SCORE       #" << endl;
 	cout << "#                  #" << endl;
 	cout << "#                  #" << endl;
-	cout << "#        " << score << "       #" << endl;
+	cout << "         " << score << "       " << endl;
 	cout << "#                  #" << endl;
 	cout << "#                  #" << endl;
 	cout << "#                  #" << endl;
